@@ -6,8 +6,8 @@ aws lambda update-function-code --function-name="study_chat" --zip-file="fileb:/
 rm study_chat.zip
 
 #push to git
-git add .
-git commit
-git push
+#git add .
+#git commit
+#git push
 
 

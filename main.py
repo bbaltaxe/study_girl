@@ -4,6 +4,7 @@ import csv
 import time 
 import boto3
 
+"""
 # Make an http get request
 request = requests.get('https://www.googleapis.com/youtube/v3/liveChat/messages?liveChatId=Cg0KC2hIVzFvWTI2a3hR&part=snippet&key=AIzaSyAA9XB1_C35bXonayY8SlPEG3ahUl9-BZw')
 
@@ -31,8 +32,19 @@ with open('messages.txt','a+') as cfile:
                 pubtime = event_dict['snippet']['publishedAt']
 
         time.sleep(waittime)
-
+"""
 def lambda_handler(event, context):
-    print(event)
+    tstring = "it's a test!\n"
+    bucketname = "study-girl"
+    file_name = "chat.txt"
+    s3_path = "study-girl/"
+
+    s3 = boto3.resource('s3')
+    object = s3.Object("study-girl","study-girl/chat.txt")
+    object.put(Body=tstring)
+#    s3.Bucket(study-girl).put_object
+    
+    print(tstring)
+    return "hello"
 
 
