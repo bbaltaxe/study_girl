@@ -36,15 +36,27 @@ with open('messages.txt','a+') as cfile:
 def lambda_handler(event, context):
     tstring = "it's a test!\n"
     bucketname = "study-girl"
-    file_name = "chat.txt"
-    s3_path = "study-girl/"
-
-    s3 = boto3.resource('s3')
-    object = s3.Object("study-girl","study-girl/chat.txt")
-    object.put(Body=tstring)
-#    s3.Bucket(study-girl).put_object
+    filename = "chat.txt"
+    s3_path = "study-girl/" + filename
     
-    print(tstring)
-    return "hello"
+    s3 = boto3.resource('s3')
+    object = s3.Object(bucketname,s3_path)
+    
+    #download file from s3
+    s3.Bucket(bucketname).download_file(s3_path,"/tmp/chat.txt")
+    
+    #Read from a file
+    #with open('/tmp/chat.txt','r') as cfile:
+    #    response = cfile.read()
+   
+    #append file
+    with open('/tmp/chat.txt','a+') as cfile:
+        cfile.write('hiya\n')
+
+
+    #write file to s3
+    object.put(Body=open('/tmp/chat.txt','rb'))
+    
+    return "eof"
 
 
